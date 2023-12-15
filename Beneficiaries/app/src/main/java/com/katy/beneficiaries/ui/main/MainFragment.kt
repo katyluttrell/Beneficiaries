@@ -9,6 +9,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.lifecycleScope
 import com.katy.beneficiaries.R
+import com.katy.beneficiaries.util.BeneficiaryJsonParser
 import com.katy.beneficiaries.util.JsonLoader
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch

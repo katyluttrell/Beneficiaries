@@ -45,7 +45,7 @@ internal class JsonLoaderTest {
     @Test
     fun testJsonLoaderException() = runTest(testCoroutineScheduler) {
         mockkStatic(Log::class)
-        every { Log.e(ofType(), ofType()) }  returns 1
+        every { Log.e(ofType(), ofType()) }  returns 0
         val testFileName = "test.json"
         every { context.assets.open(testFileName) } throws FileNotFoundException()
 
