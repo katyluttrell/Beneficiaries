@@ -1,3 +1,4 @@
 <resources>
-    <string name="app_name">beneficiaries</string>
+    <string name="app_name">Beneficiaries</string>
+    <string name="chevron">chevron</string>
 </resources>
