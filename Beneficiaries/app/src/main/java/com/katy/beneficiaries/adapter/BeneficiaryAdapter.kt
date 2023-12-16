@@ -1,6 +1,9 @@
 package com.katy.beneficiaries.adapter
 
 import android.content.Context
+import android.transition.AutoTransition
+import android.transition.ChangeBounds
+import android.transition.TransitionManager
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -41,6 +44,14 @@ class BeneficiaryAdapter(private val data: List<Beneficiary>) :
             holder.binding.beneTypeText,
             beneficiary.beneType
         )
+        bindDetailView(holder, beneficiary, context)
+        holder.binding.chevron.setOnClickListener{
+            showHideDetail(holder)
+        }
+    }
+
+    private fun bindDetailView(holder: BeneficiaryAdapter.ViewHolder, beneficiary: Beneficiary, context: Context) {
+
     }
 
 
@@ -49,7 +60,7 @@ class BeneficiaryAdapter(private val data: List<Beneficiary>) :
     <designation> Beneficiary, <beneType>. If only one has data it is displayed alone.
     There is data for neither they are not displayed.
      */
-    internal fun displayDesignationAndBeneType(
+    private fun displayDesignationAndBeneType(
         context: Context,
         designationTextView: TextView,
         designationText: String?,
@@ -66,5 +77,19 @@ class BeneficiaryAdapter(private val data: List<Beneficiary>) :
         beneTypeText?.let { beneTypeTextView.text = it }
     }
 
-    class ViewHolder(val binding: BeneficiaryCardBinding) : RecyclerView.ViewHolder(binding.root)
+    private fun showHideDetail(holder:ViewHolder){
+        if(holder.isExpanded){
+            holder.isExpanded = false
+            TransitionManager.beginDelayedTransition(holder.binding.beneficiaryCard, ChangeBounds())
+            holder.binding.beneficiaryDetail.visibility = View.GONE
+        }else{
+            holder.isExpanded = true
+            TransitionManager.beginDelayedTransition(holder.binding.beneficiaryCard, ChangeBounds())
+            holder.binding.beneficiaryDetail.visibility = View.VISIBLE
+        }
+    }
+
+    class ViewHolder(val binding: BeneficiaryCardBinding) : RecyclerView.ViewHolder(binding.root){
+        var isExpanded = false
+    }
 }
