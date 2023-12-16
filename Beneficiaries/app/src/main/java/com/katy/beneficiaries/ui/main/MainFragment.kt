@@ -7,6 +7,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.google.android.material.snackbar.Snackbar
 import com.katy.beneficiaries.R
 import com.katy.beneficiaries.adapter.BeneficiaryAdapter
 import com.katy.beneficiaries.databinding.FragmentMainBinding
@@ -36,13 +37,24 @@ class MainFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        viewModel.initiateDataFetch(requireContext(), {}, ::setUpRecycler)
+        setupObservers()
+        viewModel.initiateDataFetch(requireContext(), ::showMissingDataSnackbar)
+    }
+
+    private fun showMissingDataSnackbar(){
+        Snackbar.make(binding.root, getString(R.string.imcomplete_data_message), Snackbar.LENGTH_SHORT).show()
+    }
+
+    private fun setupObservers(){
+        viewModel.beneficiaryData.observe(viewLifecycleOwner){
+            setUpRecycler(it)
+        }
     }
 
     private fun setUpRecycler(data: List<Beneficiary>) {
-        val forecastRecyclerView = binding.beneficiaryRecyclerView
-        forecastRecyclerView.layoutManager = LinearLayoutManager(activity)
-        forecastRecyclerView.adapter = BeneficiaryAdapter(data)
+        val beneficiaryRecyclerView = binding.beneficiaryRecyclerView
+        beneficiaryRecyclerView.layoutManager = LinearLayoutManager(activity)
+        beneficiaryRecyclerView.adapter = BeneficiaryAdapter(data)
     }
 
 

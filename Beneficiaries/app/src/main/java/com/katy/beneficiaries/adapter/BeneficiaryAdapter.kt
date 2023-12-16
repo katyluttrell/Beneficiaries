@@ -1,10 +1,12 @@
 package com.katy.beneficiaries.adapter
 
+import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
+import com.katy.beneficiaries.R
 import com.katy.beneficiaries.databinding.BeneficiaryCardBinding
 import com.katy.beneficiaries.model.Beneficiary
 import com.katy.beneficiaries.model.toLocalizedString
@@ -32,18 +34,36 @@ class BeneficiaryAdapter(private val data: List<Beneficiary>) :
                 beneficiary.lastName
             )
         } ?: String.format(Constants.TWO_STRING_FORMAT, beneficiary.firstName, beneficiary.lastName)
-        displayIfExists(holder.binding.beneTypeText, beneficiary.beneType)
-        displayIfExists(holder.binding.designationText, beneficiary.designation?.toLocalizedString(context))
-
+        displayDesignationAndBeneType(
+            context,
+            holder.binding.designationText,
+            beneficiary.designation?.toLocalizedString(context),
+            holder.binding.beneTypeText,
+            beneficiary.beneType
+        )
     }
 
-    internal fun displayIfExists(textView: TextView, text: String?) {
-        if (text != null) {
-            textView.text = text
-            textView.visibility = View.VISIBLE
-        } else {
-            textView.visibility = View.GONE
+
+    /*
+    If there is data for both designation and beneType they are displayed as
+    <designation> Beneficiary, <beneType>. If only one has data it is displayed alone.
+    There is data for neither they are not displayed.
+     */
+    internal fun displayDesignationAndBeneType(
+        context: Context,
+        designationTextView: TextView,
+        designationText: String?,
+        beneTypeTextView: TextView,
+        beneTypeText: String?
+    ) {
+        designationTextView.visibility = if (designationText != null) View.VISIBLE else View.GONE
+        beneTypeTextView.visibility = if (beneTypeText != null) View.VISIBLE else View.GONE
+        designationText?.let {
+            designationTextView.text = if (beneTypeText != null)
+                String.format(context.getString(R.string.designation_comma), it)
+            else String.format(context.getString(R.string.designation), it)
         }
+        beneTypeText?.let { beneTypeTextView.text = it }
     }
 
     class ViewHolder(val binding: BeneficiaryCardBinding) : RecyclerView.ViewHolder(binding.root)

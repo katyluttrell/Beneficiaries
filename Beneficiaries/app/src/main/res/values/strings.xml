@@ -3,5 +3,8 @@
     <string name="chevron">chevron</string>
     <string name="primary">Primary</string>
     <string name="contingent">Contingent</string>
+    <string name="imcomplete_data_message">Incomplete Data: Partial data may be displayed.</string>
+    <string name="designation_comma">%s Beneficiary,</string>
+    <string name="designation">%s Beneficiary</string>
 
 </resources>
