@@ -95,6 +95,33 @@ internal class JsonHelpersKtTest {
     }
 
     @Test
+    fun testGetStringOrNullWordNull() {
+        val testObject = JSONObject(
+            """
+                {
+    "lastName": "Smith",
+    "firstName": "John",
+    "designationCode": "P",
+    "beneType": "Spouse",
+    "socialSecurityNumber": "XXXXX3333",
+    "dateOfBirth": "04201979",
+    "middleName": null,
+    "phoneNumber": "3035555555",
+    "beneficiaryAddress": {
+      "firstLineMailing": "8515 E Orchard Rd",
+      "scndLineMailing": null,
+      "city": "Greenwood Village",
+      "zipCode": "80111",
+      "stateCode": "CO",
+      "country": "US"
+    }}
+            """.trimIndent()
+        )
+        val result = testObject.getStringOrNull(BeneficiaryKeys.MIDDLE_NAME)
+        assertEquals(null, result)
+    }
+
+    @Test
     fun testGetNestedObjectOrNullSuccess() {
         val testObject = JSONObject(
             """
