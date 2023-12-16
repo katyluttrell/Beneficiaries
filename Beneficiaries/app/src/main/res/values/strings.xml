@@ -1,6 +1,6 @@
 <resources>
     <string name="app_name">Beneficiaries</string>
-    <string name="chevron">chevron</string>
+    <string name="expand">expand</string>
     <string name="primary">Primary</string>
     <string name="contingent">Contingent</string>
     <string name="imcomplete_data_message">Incomplete Data: Partial data may be displayed.</string>
