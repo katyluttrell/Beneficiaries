@@ -10,4 +10,6 @@ object Constants {
     const val BENEFICIARIES_FILE_NAME = "Beneficiaries.json"
     const val THREE_STRING_FORMAT = "%s %s %s"
     const val TWO_STRING_FORMAT = "%s %s"
+    const val CITY_STATE_ZIP_FORMAT = "%s, %s %s"
+    const val CITY_STATE_FORMAT = "%s, %s"
 }

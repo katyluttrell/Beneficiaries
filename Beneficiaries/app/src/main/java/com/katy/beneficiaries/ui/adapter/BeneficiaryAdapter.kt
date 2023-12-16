@@ -1,4 +1,4 @@
-package com.katy.beneficiaries.adapter
+package com.katy.beneficiaries.ui.adapter
 
 import android.content.Context
 import android.transition.ChangeBounds
@@ -17,7 +17,7 @@ import com.katy.beneficiaries.util.Constants
 import com.katy.beneficiaries.util.StringUtils
 
 class BeneficiaryAdapter(
-    private val data: List<Beneficiary>,
+    private val data: List<CardDataWrapper<Beneficiary>>,
     private val stringUtils: StringUtils
 ) :
     RecyclerView.Adapter<BeneficiaryAdapter.ViewHolder>() {
@@ -32,7 +32,8 @@ class BeneficiaryAdapter(
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val context = holder.itemView.context
-        val beneficiary = data[position]
+        val dataAtPosition = data[position]
+        val beneficiary = dataAtPosition.data
         holder.binding.beneficiaryName.text = beneficiary.middleName?.let {
             String.format(
                 Constants.THREE_STRING_FORMAT,
@@ -50,8 +51,11 @@ class BeneficiaryAdapter(
         )
         bindDetailView(holder.binding, beneficiary, context)
         holder.binding.chevron.setOnClickListener {
-            showHideDetail(holder)
+            dataAtPosition.isExpanded = !dataAtPosition.isExpanded
+            showHideDetail(holder, dataAtPosition.isExpanded)
         }
+        //Display initial state of expansion on UI
+        showHideDetail(holder, dataAtPosition.isExpanded)
     }
 
     private fun bindDetailView(
@@ -76,7 +80,32 @@ class BeneficiaryAdapter(
     }
 
     private fun displayAddressIfNotNull(binding: BeneficiaryCardBinding, address: Address?) {
+        if (address != null) {
+            binding.addressLayout.visibility = View.VISIBLE
+            showIfNotNull(binding.addressFirstLine, address.firstLineMailing)
+            showIfNotNull(binding.addressScndLine, address.scndLineMailing)
+            showIfNotNull(
+                binding.cityStateZip,
+                formatCityStateZip(address.city, address.stateCode, address.zipCode)
+            )
+            showIfNotNull(binding.country, address.country)
+        } else {
+            binding.addressLayout.visibility = View.GONE
+        }
+    }
 
+    private fun formatCityStateZip(city: String?, state: String?, zip: String?): String? {
+        return if (city != null && state != null && zip != null) {
+            String.format(Constants.CITY_STATE_ZIP_FORMAT, city, state, zip)
+        } else if (city != null && state != null) {
+            String.format(Constants.CITY_STATE_FORMAT, city, state)
+        } else if (city != null && zip != null) {
+            String.format(Constants.TWO_STRING_FORMAT, city, zip)
+        } else if (state != null && zip != null) {
+            String.format(Constants.TWO_STRING_FORMAT, state, zip)
+        } else {
+            null
+        }
     }
 
     private fun showIfNotNull(textView: TextView, text: String?) {
@@ -111,19 +140,16 @@ class BeneficiaryAdapter(
         beneTypeText?.let { beneTypeTextView.text = it }
     }
 
-    private fun showHideDetail(holder: ViewHolder) {
-        if (holder.isExpanded) {
-            holder.isExpanded = false
-            TransitionManager.beginDelayedTransition(holder.binding.beneficiaryCard, ChangeBounds())
-            holder.binding.beneficiaryDetail.visibility = View.GONE
-        } else {
-            holder.isExpanded = true
+    private fun showHideDetail(holder: ViewHolder, shouldShow: Boolean) {
+        if (shouldShow) {
             TransitionManager.beginDelayedTransition(holder.binding.beneficiaryCard, ChangeBounds())
             holder.binding.beneficiaryDetail.visibility = View.VISIBLE
+        } else {
+            TransitionManager.beginDelayedTransition(holder.binding.beneficiaryCard, ChangeBounds())
+            holder.binding.beneficiaryDetail.visibility = View.GONE
         }
     }
 
-    class ViewHolder(val binding: BeneficiaryCardBinding) : RecyclerView.ViewHolder(binding.root) {
-        var isExpanded = false
-    }
+    inner class ViewHolder(val binding: BeneficiaryCardBinding) :
+        RecyclerView.ViewHolder(binding.root)
 }

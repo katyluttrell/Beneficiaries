@@ -97,6 +97,7 @@
 
                 <RelativeLayout
                     android:id="@+id/address_layout"
+                    android:visibility="gone"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:orientation="vertical">
@@ -119,28 +120,24 @@
                             android:id="@+id/address_first_line"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="First Line"
                             android:textAppearance="@style/TextAppearance.AppCompat.Small" />
 
                         <TextView
                             android:id="@+id/address_scnd_line"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="Second Line"
                             android:textAppearance="@style/TextAppearance.AppCompat.Small" />
 
                         <TextView
                             android:id="@+id/city_state_zip"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="City, State Zip"
                             android:textAppearance="@style/TextAppearance.AppCompat.Small" />
 
                         <TextView
                             android:id="@+id/country"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="Country"
                             android:textAppearance="@style/TextAppearance.AppCompat.Small" />
                     </LinearLayout>
                 </RelativeLayout>

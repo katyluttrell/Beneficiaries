@@ -7,14 +7,16 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.katy.beneficiaries.di.AppComponent
 import com.katy.beneficiaries.model.Beneficiary
+import com.katy.beneficiaries.ui.adapter.CardDataWrapper
 import kotlinx.coroutines.awaitAll
 import kotlinx.coroutines.launch
 
 class MainViewModel : ViewModel() {
     private val beneficiaryRepository = AppComponent.getBeneficiaryRepository()
 
-    private val _beneficiaryData: MutableLiveData<List<Beneficiary>> = MutableLiveData()
-    val beneficiaryData: LiveData<List<Beneficiary>>
+    private val _beneficiaryData: MutableLiveData<List<CardDataWrapper<Beneficiary>>> =
+        MutableLiveData()
+    val beneficiaryData: LiveData<List<CardDataWrapper<Beneficiary>>>
         get() = _beneficiaryData
 
     fun initiateDataFetch(context: Context, errorCallback: () -> Unit) {
@@ -23,8 +25,8 @@ class MainViewModel : ViewModel() {
             if (list?.contains(null) != false) {
                 errorCallback()
             }
-            list?.let {
-                _beneficiaryData.value = it.filterNotNull()
+            list?.let { beneficiaryList ->
+                _beneficiaryData.value = beneficiaryList.filterNotNull().map { CardDataWrapper(it) }
             }
         }
     }
