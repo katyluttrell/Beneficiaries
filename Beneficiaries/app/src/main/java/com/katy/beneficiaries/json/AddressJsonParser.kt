@@ -1,8 +1,9 @@
-package com.katy.beneficiaries.util
+package com.katy.beneficiaries.json
 
 import com.katy.beneficiaries.model.Address
 import com.katy.beneficiaries.model.AddressKeys
 import com.katy.beneficiaries.model.hasAtLeastOneEssentialAttribute
+import com.katy.beneficiaries.util.getStringOrNull
 import org.json.JSONObject
 
 internal class AddressJsonParser {

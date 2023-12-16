@@ -1,35 +1,20 @@
-package com.katy.beneficiaries.util
+package com.katy.beneficiaries.json
 
-import android.util.Log
 import com.katy.beneficiaries.model.Beneficiary
 import com.katy.beneficiaries.model.BeneficiaryKeys
 import com.katy.beneficiaries.model.toDesignation
-import kotlinx.coroutines.CoroutineDispatcher
-import kotlinx.coroutines.coroutineScope
-import kotlinx.coroutines.flow.flow
-import kotlinx.coroutines.launch
-import org.json.JSONArray
-import org.json.JSONException
+import com.katy.beneficiaries.util.Constants
+import com.katy.beneficiaries.util.StringUtils
+import com.katy.beneficiaries.util.getNestedObjectOrNull
+import com.katy.beneficiaries.util.getStringOrNull
 import org.json.JSONObject
 
-internal class BeneficiaryJsonParser {
+internal class BeneficiaryJsonParser(
+    private val stringUtils: StringUtils,
+    private val addressJsonParser: AddressJsonParser
+) {
 
-    val stringUtils = StringUtils()
-    val addressJsonParser = AddressJsonParser()
-    fun parseBeneficiariesFromJson(jsonString: String, defaultDispatcher: CoroutineDispatcher) =
-        flow {
-                getJSONArrayOrNull(jsonString)?.let {
-                    coroutineScope {
-                        for (i in 0 until it.length()) {
-                            launch(defaultDispatcher) {
-                                parseBeneficiary(it.getJSONObject(i))?.let { emit(it) }
-                            }
-                        }
-                    }
-                }
-        }
-
-    private fun parseBeneficiary(jsonObject: JSONObject): Beneficiary? {
+    internal fun parseBeneficiary(jsonObject: JSONObject): Beneficiary? {
         return with(jsonObject) {
             getStringOrNull(BeneficiaryKeys.LAST_NAME)?.let { lastName ->
                 getStringOrNull(BeneficiaryKeys.FIRST_NAME)?.let { firstName ->
@@ -46,7 +31,7 @@ internal class BeneficiaryJsonParser {
                         getStringOrNull(BeneficiaryKeys.DATE_OF_BIRTH)?.let {
                             stringUtils.createDateFromString(
                                 it,
-                                "MMddyyyy"
+                                Constants.DATE_FORMAT
                             )
                         },
                         getStringOrNull(BeneficiaryKeys.MIDDLE_NAME),
@@ -63,15 +48,6 @@ internal class BeneficiaryJsonParser {
                     )
                 }
             }
-        }
-    }
-
-    internal fun getJSONArrayOrNull(jsonString: String):JSONArray?{
-        return try {
-            JSONArray(jsonString)
-        }catch (e:JSONException){
-            Log.e("BeneficiaryJsonParser", "Failed to create JSON array. $e")
-            null
         }
     }
 }

@@ -43,7 +43,7 @@ internal class StringUtilsTest {
     }
 
     @Test
-    fun testFormatValidCensoredSSN(){
+    fun testFormatValidCensoredSSN() {
         val ssnString = "XXXXX1234"
         val expectedResult = "XXX-XX-1234"
 
@@ -51,7 +51,7 @@ internal class StringUtilsTest {
     }
 
     @Test
-    fun testFormatValidUncensoredSSN(){
+    fun testFormatValidUncensoredSSN() {
         val ssnString = "987651234"
         val expectedResult = "XXX-XX-1234"
 
@@ -59,14 +59,14 @@ internal class StringUtilsTest {
     }
 
     @Test
-    fun testFormatInvalidSSN(){
+    fun testFormatInvalidSSN() {
         val ssnString = "invalid1244"
 
         assertEquals(null, stringUtils.formatAndValidateSSN(ssnString))
     }
 
     @Test
-    fun testFormatValidPhoneNumber(){
+    fun testFormatValidPhoneNumber() {
         val testString = "1234567890"
         val expectedResult = "123-456-7890"
 
@@ -74,14 +74,14 @@ internal class StringUtilsTest {
     }
 
     @Test
-    fun testFormatTooLongPhoneNumber(){
+    fun testFormatTooLongPhoneNumber() {
         val testString = "123456789076930790"
 
         assertEquals(null, stringUtils.formatAndValidatePhoneNumber(testString))
     }
 
     @Test
-    fun testFormatNotNumberPhoneNumber(){
+    fun testFormatNotNumberPhoneNumber() {
         val testString = "123-456789"
 
         assertEquals(null, stringUtils.formatAndValidatePhoneNumber(testString))

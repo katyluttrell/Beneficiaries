@@ -1,4 +1,4 @@
-package com.katy.beneficiaries.util
+package com.katy.beneficiaries.json
 
 import com.katy.beneficiaries.model.Address
 import org.json.JSONObject

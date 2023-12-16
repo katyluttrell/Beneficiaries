@@ -20,9 +20,9 @@ internal data class Beneficiary(
 internal object BeneficiaryKeys {
     const val LAST_NAME = "lastName"
     const val FIRST_NAME = "firstName"
-    const val DESIGNATION = "designation"
+    const val DESIGNATION = "designationCode"
     const val BENE_TYPE = "beneType"
-    const val SSN = "ssn"
+    const val SSN = "socialSecurityNumber"
     const val DATE_OF_BIRTH = "dateOfBirth"
     const val MIDDLE_NAME = "middleName"
     const val PHONE_NUMBER = "phoneNumber"

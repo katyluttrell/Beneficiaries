@@ -1,8 +1,11 @@
-package com.katy.beneficiaries.util
+package com.katy.beneficiaries.json
 
 import android.content.Context
 import android.util.Log
-import io.mockk.*
+import io.mockk.every
+import io.mockk.mockk
+import io.mockk.mockkStatic
+import io.mockk.verify
 import kotlinx.coroutines.test.StandardTestDispatcher
 import kotlinx.coroutines.test.TestCoroutineScheduler
 import kotlinx.coroutines.test.runTest
@@ -17,7 +20,7 @@ internal class JsonLoaderTest {
     private val testCoroutineScheduler = TestCoroutineScheduler()
     private val testDispatcher = StandardTestDispatcher(testCoroutineScheduler)
     private val context = mockk<Context>(relaxed = true)
-    private val jsonLoader = JsonLoader()
+    private val jsonLoader = JsonLoader(testDispatcher)
 
     @Test
     fun testJsonLoaderSuccess() = runTest(testCoroutineScheduler) {
@@ -29,7 +32,7 @@ internal class JsonLoaderTest {
             )
         )
 
-        val result = jsonLoader.loadJson(context, testFileName, testDispatcher)
+        val result = jsonLoader.loadJson(context, testFileName)
         assertEquals(testString, result)
     }
 
@@ -38,18 +41,18 @@ internal class JsonLoaderTest {
         val testFileName = "test.json"
         every { context.assets.open(testFileName) } returns ByteArrayInputStream(byteArrayOf())
 
-        val result = jsonLoader.loadJson(context, testFileName, testDispatcher)
+        val result = jsonLoader.loadJson(context, testFileName)
         assertEquals("", result)
     }
 
     @Test
     fun testJsonLoaderException() = runTest(testCoroutineScheduler) {
         mockkStatic(Log::class)
-        every { Log.e(ofType(), ofType()) }  returns 0
+        every { Log.e(ofType(), ofType()) } returns 0
         val testFileName = "test.json"
         every { context.assets.open(testFileName) } throws FileNotFoundException()
 
-        val result = jsonLoader.loadJson(context, testFileName, testDispatcher)
+        val result = jsonLoader.loadJson(context, testFileName)
         assertEquals(null, result)
         verify { Log.e("Json Loader", "Unable to read json file $testFileName") }
     }

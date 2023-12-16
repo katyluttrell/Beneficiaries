@@ -5,4 +5,6 @@ object Constants {
     const val  SSN_FORMAT = "XXX-XX-%s"
     const val PHONE_NUMBER_FORMAT = "%s-%s-%s"
     const val PHONE_NUMBER_LENGTH = 10
+    const val DATE_FORMAT = "MMddyyyy"
+    const val BENEFICIARIES_FILE_NAME = "Beneficiaries.json"
 }
