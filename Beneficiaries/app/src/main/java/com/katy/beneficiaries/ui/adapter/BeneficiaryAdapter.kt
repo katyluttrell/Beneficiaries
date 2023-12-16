@@ -142,10 +142,10 @@ class BeneficiaryAdapter(
 
     private fun showHideDetail(holder: ViewHolder, shouldShow: Boolean) {
         if (shouldShow) {
-            TransitionManager.beginDelayedTransition(holder.binding.beneficiaryCard, ChangeBounds())
+            holder.binding.expandColapseButton.setImageResource( R.drawable.baseline_keyboard_arrow_up_24)
             holder.binding.beneficiaryDetail.visibility = View.VISIBLE
         } else {
-            TransitionManager.beginDelayedTransition(holder.binding.beneficiaryCard, ChangeBounds())
+            holder.binding.expandColapseButton.setImageResource( R.drawable.baseline_keyboard_arrow_down_24)
             holder.binding.beneficiaryDetail.visibility = View.GONE
         }
     }

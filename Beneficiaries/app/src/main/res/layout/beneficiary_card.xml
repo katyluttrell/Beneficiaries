@@ -60,15 +60,14 @@
                     </LinearLayout>
                 </LinearLayout>
 
-                <Button
+                <ImageButton
                     android:id="@+id/expand_colapse_button"
+                    style="@style/Widget.Material3.Button.IconButton.Outlined"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignParentEnd="true"
                     android:layout_centerInParent="true"
-                    style="@style/Widget.Material3.Button.IconButton.Filled"
-                    app:icon="@drawable/baseline_keyboard_arrow_down_24"
-                    />
+                    android:src="@drawable/baseline_keyboard_arrow_down_24" />
             </RelativeLayout>
 
             <LinearLayout
@@ -96,10 +95,10 @@
 
                 <RelativeLayout
                     android:id="@+id/address_layout"
-                    android:visibility="gone"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:orientation="vertical">
+                    android:orientation="vertical"
+                    android:visibility="gone">
 
                     <TextView
                         android:id="@+id/address_label"
@@ -111,9 +110,9 @@
                     <LinearLayout
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_below="@id/address_label"
                         android:layout_marginVertical="4dp"
-                        android:orientation="vertical"
-                        android:layout_below="@id/address_label">
+                        android:orientation="vertical">
 
                         <TextView
                             android:id="@+id/address_first_line"
