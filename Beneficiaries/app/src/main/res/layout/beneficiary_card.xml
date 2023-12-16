@@ -13,7 +13,8 @@
 
         <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:layout_margin="4dp">
 
             <RelativeLayout
                 android:id="@+id/beneficiary_card_top"
@@ -94,12 +95,55 @@
                     android:text="@string/date_of_birth_display"
                     android:textAppearance="@style/TextAppearance.AppCompat.Medium" />
 
-                <TextView
-                    android:id="@+id/address_label"
+                <RelativeLayout
+                    android:id="@+id/address_layout"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/address_label"
-                    android:textAppearance="@style/TextAppearance.AppCompat.Medium" />
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:id="@+id/address_label"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/address_label"
+                        android:textAppearance="@style/TextAppearance.AppCompat.Medium" />
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginVertical="4dp"
+                        android:orientation="vertical"
+                        android:layout_below="@id/address_label">
+
+                        <TextView
+                            android:id="@+id/address_first_line"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="First Line"
+                            android:textAppearance="@style/TextAppearance.AppCompat.Small" />
+
+                        <TextView
+                            android:id="@+id/address_scnd_line"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Second Line"
+                            android:textAppearance="@style/TextAppearance.AppCompat.Small" />
+
+                        <TextView
+                            android:id="@+id/city_state_zip"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="City, State Zip"
+                            android:textAppearance="@style/TextAppearance.AppCompat.Small" />
+
+                        <TextView
+                            android:id="@+id/country"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Country"
+                            android:textAppearance="@style/TextAppearance.AppCompat.Small" />
+                    </LinearLayout>
+                </RelativeLayout>
             </LinearLayout>
 
         </RelativeLayout>
