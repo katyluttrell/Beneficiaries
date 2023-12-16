@@ -5,7 +5,7 @@ import java.time.LocalDate
 /*
  lastName and firstName are non-nullable as their values are essential for a Beneficiary object
  */
-internal data class Beneficiary(
+data class Beneficiary(
     val lastName: String,
     val firstName: String,
     val designation: Designation?,

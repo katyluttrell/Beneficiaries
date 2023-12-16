@@ -1,4 +1,7 @@
 <resources>
     <string name="app_name">Beneficiaries</string>
     <string name="chevron">chevron</string>
+    <string name="primary">Primary</string>
+    <string name="contingent">Contingent</string>
+
 </resources>

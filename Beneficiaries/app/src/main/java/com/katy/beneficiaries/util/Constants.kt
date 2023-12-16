@@ -7,4 +7,6 @@ object Constants {
     const val PHONE_NUMBER_LENGTH = 10
     const val DATE_FORMAT = "MMddyyyy"
     const val BENEFICIARIES_FILE_NAME = "Beneficiaries.json"
+    const val THREE_STRING_FORMAT = "%s %s %s"
+    const val TWO_STRING_FORMAT = "%s %s"
 }
