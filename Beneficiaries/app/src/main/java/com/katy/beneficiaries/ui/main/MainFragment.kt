@@ -10,6 +10,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.katy.beneficiaries.R
 import com.katy.beneficiaries.adapter.BeneficiaryAdapter
 import com.katy.beneficiaries.databinding.FragmentMainBinding
+import com.katy.beneficiaries.model.Beneficiary
 
 class MainFragment : Fragment() {
 
@@ -35,13 +36,13 @@ class MainFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        setUpRecycler()
+        viewModel.initiateDataFetch(requireContext(), {}, ::setUpRecycler)
     }
 
-    private fun setUpRecycler() {
+    private fun setUpRecycler(data: List<Beneficiary>) {
         val forecastRecyclerView = binding.beneficiaryRecyclerView
         forecastRecyclerView.layoutManager = LinearLayoutManager(activity)
-        forecastRecyclerView.adapter = BeneficiaryAdapter(viewModel.beneficiaryData)
+        forecastRecyclerView.adapter = BeneficiaryAdapter(data)
     }
 
 

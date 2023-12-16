@@ -6,7 +6,7 @@ import com.katy.beneficiaries.model.hasAtLeastOneEssentialAttribute
 import com.katy.beneficiaries.util.getStringOrNull
 import org.json.JSONObject
 
-internal class AddressJsonParser {
+class AddressJsonParser {
 
     fun parseAddress(jsonObject: JSONObject): Address? {
         val address = with(jsonObject) {

@@ -5,7 +5,7 @@ import java.time.LocalDate
 import java.time.format.DateTimeFormatter
 import java.time.format.DateTimeParseException
 
-internal class StringUtils {
+class StringUtils {
 
     fun createDateFromString(dateString: String, formatPattern: String): LocalDate? {
         return try {

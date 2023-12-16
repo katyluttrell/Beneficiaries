@@ -9,7 +9,7 @@ import com.katy.beneficiaries.util.getNestedObjectOrNull
 import com.katy.beneficiaries.util.getStringOrNull
 import org.json.JSONObject
 
-internal class BeneficiaryJsonParser(
+class BeneficiaryJsonParser(
     private val stringUtils: StringUtils,
     private val addressJsonParser: AddressJsonParser
 ) {

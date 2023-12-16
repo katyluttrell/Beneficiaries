@@ -12,7 +12,7 @@ import kotlinx.coroutines.Deferred
 import kotlinx.coroutines.async
 import kotlinx.coroutines.coroutineScope
 
-internal class BeneficiaryRepository(
+class BeneficiaryRepository(
     private val beneficiaryJsonParser: BeneficiaryJsonParser,
     private val jsonLoader: JsonLoader,
     private val defaultDispatcher: CoroutineDispatcher
