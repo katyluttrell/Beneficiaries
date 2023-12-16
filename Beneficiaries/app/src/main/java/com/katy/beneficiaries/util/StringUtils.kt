@@ -22,6 +22,15 @@ class StringUtils {
         }
     }
 
+    fun createStringFromLocalDate(localDate: LocalDate, formatPattern: String): String{
+        return try {
+            val formatter = DateTimeFormatter.ofPattern(formatPattern)
+            localDate.format(formatter)
+        } catch (e: Exception){
+            localDate.toString()
+        }
+    }
+
     /*
         A SSN is considered valid if it is nine characters long and contains only digits
         or a censoring 'X' in the first 5 digits. To SSNs will be formatted with dashes

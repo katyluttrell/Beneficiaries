@@ -11,6 +11,7 @@ import com.google.android.material.snackbar.Snackbar
 import com.katy.beneficiaries.R
 import com.katy.beneficiaries.adapter.BeneficiaryAdapter
 import com.katy.beneficiaries.databinding.FragmentMainBinding
+import com.katy.beneficiaries.di.AppComponent
 import com.katy.beneficiaries.model.Beneficiary
 
 class MainFragment : Fragment() {
@@ -21,6 +22,7 @@ class MainFragment : Fragment() {
 
     private lateinit var viewModel: MainViewModel
     private lateinit var binding: FragmentMainBinding
+    private val stringUtils = AppComponent.getStringUtils()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -54,7 +56,7 @@ class MainFragment : Fragment() {
     private fun setUpRecycler(data: List<Beneficiary>) {
         val beneficiaryRecyclerView = binding.beneficiaryRecyclerView
         beneficiaryRecyclerView.layoutManager = LinearLayoutManager(activity)
-        beneficiaryRecyclerView.adapter = BeneficiaryAdapter(data)
+        beneficiaryRecyclerView.adapter = BeneficiaryAdapter(data, stringUtils)
     }
 
 
