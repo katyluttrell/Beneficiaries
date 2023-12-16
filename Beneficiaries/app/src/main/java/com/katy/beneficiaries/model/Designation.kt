@@ -5,8 +5,8 @@ enum class Designation {
     CONTINGENT
 }
 
-fun String.toDesignation(): Designation?{
-    return when(this){
+fun String.toDesignation(): Designation? {
+    return when (this) {
         "P" -> Designation.PRIMARY
         "C" -> Designation.CONTINGENT
         else -> null

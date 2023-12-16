@@ -5,15 +5,12 @@ import android.util.Log
 import com.katy.beneficiaries.json.AddressJsonParser
 import com.katy.beneficiaries.json.BeneficiaryJsonParser
 import com.katy.beneficiaries.json.JsonLoader
-import com.katy.beneficiaries.model.Beneficiary
-import com.katy.beneficiaries.model.Designation
 import com.katy.beneficiaries.util.Constants
 import com.katy.beneficiaries.util.StringUtils
 import io.mockk.coEvery
 import io.mockk.every
 import io.mockk.mockk
 import io.mockk.mockkStatic
-import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.awaitAll
 import kotlinx.coroutines.test.StandardTestDispatcher
 import kotlinx.coroutines.test.TestCoroutineScheduler
@@ -21,10 +18,9 @@ import kotlinx.coroutines.test.runTest
 import org.junit.Assert.assertEquals
 import org.junit.Before
 import org.junit.Test
-import java.time.LocalDate
 
 
-internal class BeneficiaryRepositoryTests{
+internal class BeneficiaryRepositoryTest {
 
     val mockContext = mockk<Context>()
     val jsonParser = BeneficiaryJsonParser(StringUtils(), AddressJsonParser())
@@ -34,20 +30,20 @@ internal class BeneficiaryRepositoryTests{
     val respository = BeneficiaryRepository(jsonParser, mockJsonLoader, testDispatcher)
 
     @Before
-    fun setup(){
+    fun setup() {
         mockkStatic(Log::class)
         every { Log.e(ofType(), ofType()) } returns 0
     }
 
     @Test
-    fun testGetBeneficiaryDataSuccess() = runTest(testCoroutineScheduler){
+    fun testGetBeneficiaryDataSuccess() = runTest(testCoroutineScheduler) {
         setupSuccessfulJsonLoader()
 
         val list = respository.getBeneficiaryData(mockContext)?.awaitAll()
         assertEquals(13, list?.size)
     }
 
-    fun setupSuccessfulJsonLoader(){
+    fun setupSuccessfulJsonLoader() {
         coEvery { mockJsonLoader.loadJson(mockContext, Constants.BENEFICIARIES_FILE_NAME) } returns
                 """
                     [

@@ -24,12 +24,7 @@ internal class AddressJsonParserTest {
         """.trimIndent()
         )
         val expectedResult = Address(
-            "8515 E Orchard Rd",
-            "Apt 10",
-            "Greenwood Village",
-            "80111",
-            "CO",
-            "US"
+            "8515 E Orchard Rd", "Apt 10", "Greenwood Village", "80111", "CO", "US"
         )
 
         assertEquals(expectedResult, addressJsonParser.parseAddress(testJson))
@@ -49,20 +44,16 @@ internal class AddressJsonParserTest {
         """.trimIndent()
         )
         val expectedResult = Address(
-            "8515 E Orchard Rd",
-            null,
-            "Greenwood Village",
-            "80111",
-            "CO",
-            null
+            "8515 E Orchard Rd", null, "Greenwood Village", "80111", "CO", null
         )
 
         assertEquals(expectedResult, addressJsonParser.parseAddress(testJson))
     }
 
     @Test
-    fun testParseAddressTooManyNull(){
-        val testJson = JSONObject("""
+    fun testParseAddressTooManyNull() {
+        val testJson = JSONObject(
+            """
             {
       "firstLineMailing": null,
       "scndLineMailing": null,
@@ -71,18 +62,21 @@ internal class AddressJsonParserTest {
       "stateCode": null,
       "country": null
     }
-        """.trimIndent())
+        """.trimIndent()
+        )
 
         assertEquals(null, addressJsonParser.parseAddress(testJson))
     }
 
     @Test
-    fun testParseAddressTooManyMissing(){
-        val testJson = JSONObject("""
+    fun testParseAddressTooManyMissing() {
+        val testJson = JSONObject(
+            """
             {
       "firstLineMailing": "123 Main Street",
     }
-        """.trimIndent())
+        """.trimIndent()
+        )
 
         assertEquals(null, addressJsonParser.parseAddress(testJson))
     }

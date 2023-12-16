@@ -23,7 +23,7 @@ import java.time.LocalDate
 import kotlin.system.measureTimeMillis
 
 
-internal class BeneficiaryRepositoryMockTests{
+internal class BeneficiaryRepositoryMockTest {
 
     val mockContext = mockk<Context>()
     val mockJsonParser = mockk<BeneficiaryJsonParser>()
@@ -38,20 +38,20 @@ internal class BeneficiaryRepositoryMockTests{
         Designation.PRIMARY,
         "Child",
         null,
-        LocalDate.of(2020, 6,2),
+        LocalDate.of(2020, 6, 2),
         "Nunzio",
         null,
         null
     )
 
     @Before
-    fun setup(){
+    fun setup() {
         mockkStatic(Log::class)
         every { Log.e(ofType(), ofType()) } returns 0
     }
 
     @Test
-    fun testGetBeneficiaryDataSuccess() = runTest(testCoroutineScheduler){
+    fun testGetBeneficiaryDataSuccess() = runTest(testCoroutineScheduler) {
         setupSuccessfulJsonLoader()
         setupSuccessfulJsonParser()
 
@@ -60,7 +60,7 @@ internal class BeneficiaryRepositoryMockTests{
     }
 
     @Test
-    fun testGetBeneficiaryDataLoadJsonProblem() = runTest(testCoroutineScheduler){
+    fun testGetBeneficiaryDataLoadJsonProblem() = runTest(testCoroutineScheduler) {
         setupMalformedJsonLoader()
 
         val list = respository.getBeneficiaryData(mockContext)?.awaitAll()
@@ -68,31 +68,46 @@ internal class BeneficiaryRepositoryMockTests{
     }
 
     @Test
-    fun testGetBeneficiaryDataLoadJsonNull() = runTest(testCoroutineScheduler){
-        coEvery { mockJsonLoader.loadJson(mockContext, Constants.BENEFICIARIES_FILE_NAME) } returns null
+    fun testGetBeneficiaryDataLoadJsonNull() = runTest(testCoroutineScheduler) {
+        coEvery {
+            mockJsonLoader.loadJson(
+                mockContext,
+                Constants.BENEFICIARIES_FILE_NAME
+            )
+        } returns null
 
         val list = respository.getBeneficiaryData(mockContext)?.awaitAll()
         assertEquals(null, list)
     }
 
     @Test
-    fun testGetBeneficiaryDataNullArrayProblem() = runTest(testCoroutineScheduler){
-        coEvery { mockJsonLoader.loadJson(mockContext, Constants.BENEFICIARIES_FILE_NAME) } returns ""
+    fun testGetBeneficiaryDataNullArrayProblem() = runTest(testCoroutineScheduler) {
+        coEvery {
+            mockJsonLoader.loadJson(
+                mockContext,
+                Constants.BENEFICIARIES_FILE_NAME
+            )
+        } returns ""
 
         val list = respository.getBeneficiaryData(mockContext)?.awaitAll()
         assertEquals(null, list)
     }
 
     @Test
-    fun testGetBeneficiaryDataNullJsonObjectProblem() = runTest(testCoroutineScheduler){
-        coEvery { mockJsonLoader.loadJson(mockContext, Constants.BENEFICIARIES_FILE_NAME) } returns "[{}]"
+    fun testGetBeneficiaryDataNullJsonObjectProblem() = runTest(testCoroutineScheduler) {
+        coEvery {
+            mockJsonLoader.loadJson(
+                mockContext,
+                Constants.BENEFICIARIES_FILE_NAME
+            )
+        } returns "[{}]"
 
         val list = respository.getBeneficiaryData(mockContext)?.awaitAll()
         assertEquals(listOf(null), list)
     }
 
     @Test
-    fun testGetBeneficiaryDataNullBeneficiaryProblem() = runTest(testCoroutineScheduler){
+    fun testGetBeneficiaryDataNullBeneficiaryProblem() = runTest(testCoroutineScheduler) {
         setupSuccessfulJsonLoader()
         every { mockJsonParser.parseBeneficiary(ofType()) } returns null
 
@@ -101,19 +116,23 @@ internal class BeneficiaryRepositoryMockTests{
     }
 
     @Test
-    fun testParallelExecution()= runTest(testCoroutineScheduler){
+    fun testParallelExecution() = runTest(testCoroutineScheduler) {
         setupTenJsonLoader()
-        every { mockJsonParser.parseBeneficiary(ofType()) } answers{ Thread.sleep(500); beneficiary}
+        every { mockJsonParser.parseBeneficiary(ofType()) } answers { Thread.sleep(500); beneficiary }
 
-        var list:List<Beneficiary?>? = null
+        var list: List<Beneficiary?>? = null
         val time = measureTimeMillis {
-             list = BeneficiaryRepository(mockJsonParser, mockJsonLoader, Dispatchers.Default).getBeneficiaryData(mockContext)?.awaitAll()
+            list = BeneficiaryRepository(
+                mockJsonParser,
+                mockJsonLoader,
+                Dispatchers.Default
+            ).getBeneficiaryData(mockContext)?.awaitAll()
         }
 
         assert(time < 6000)
     }
 
-    fun setupTenJsonLoader(){
+    fun setupTenJsonLoader() {
         coEvery { mockJsonLoader.loadJson(mockContext, Constants.BENEFICIARIES_FILE_NAME) } returns
                 """
                     [
@@ -142,7 +161,7 @@ internal class BeneficiaryRepositoryMockTests{
                 """.trimIndent()
     }
 
-    fun setupSuccessfulJsonLoader(){
+    fun setupSuccessfulJsonLoader() {
         coEvery { mockJsonLoader.loadJson(mockContext, Constants.BENEFICIARIES_FILE_NAME) } returns
                 """
                     [
@@ -152,7 +171,7 @@ internal class BeneficiaryRepositoryMockTests{
                 """.trimIndent()
     }
 
-    fun setupMalformedJsonLoader(){
+    fun setupMalformedJsonLoader() {
         coEvery { mockJsonLoader.loadJson(mockContext, Constants.BENEFICIARIES_FILE_NAME) } returns
                 """
                     [
@@ -162,7 +181,7 @@ internal class BeneficiaryRepositoryMockTests{
                 """.trimIndent()
     }
 
-    fun setupSuccessfulJsonParser(){
+    fun setupSuccessfulJsonParser() {
         every { mockJsonParser.parseBeneficiary(ofType()) } returns beneficiary
     }
 }

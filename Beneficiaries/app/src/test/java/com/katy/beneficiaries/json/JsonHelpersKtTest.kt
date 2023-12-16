@@ -11,10 +11,10 @@ import org.json.JSONObject
 import org.junit.Assert.assertEquals
 import org.junit.Test
 
-internal class JsonHelpersKtTest{
+internal class JsonHelpersKtTest {
 
     @Test
-    fun testGetStringOrNullSuccess(){
+    fun testGetStringOrNullSuccess() {
         val testObject = JSONObject(
             """
                 {
@@ -41,7 +41,7 @@ internal class JsonHelpersKtTest{
     }
 
     @Test
-    fun testGetStringOrNullBadKey(){
+    fun testGetStringOrNullBadKey() {
         val testObject = JSONObject(
             """
                 {
@@ -68,7 +68,7 @@ internal class JsonHelpersKtTest{
     }
 
     @Test
-    fun testGetStringOrNullEmpty(){
+    fun testGetStringOrNullEmpty() {
         val testObject = JSONObject(
             """
                 {
@@ -95,7 +95,7 @@ internal class JsonHelpersKtTest{
     }
 
     @Test
-    fun testGetNestedObjectOrNullSuccess(){
+    fun testGetNestedObjectOrNullSuccess() {
         val testObject = JSONObject(
             """
                 {
@@ -134,7 +134,7 @@ internal class JsonHelpersKtTest{
     }
 
     @Test
-    fun testGetNestedObjectOrNullBadKey(){
+    fun testGetNestedObjectOrNullBadKey() {
         val testObject = JSONObject(
             """
                 {
@@ -162,7 +162,7 @@ internal class JsonHelpersKtTest{
     }
 
     @Test
-    fun testGetNestedObjectOrNullEmpty(){
+    fun testGetNestedObjectOrNullEmpty() {
         val testObject = JSONObject(
             """
                 {
@@ -212,15 +212,13 @@ internal class JsonHelpersKtTest{
         "age": 30,
         "city": "New York"
     }"""
-            ),
-            JSONObject(
+            ), JSONObject(
                 """{
         "name": "Alice",
         "age": 25,
         "city": "Los Angeles"
     }"""
-            ),
-            JSONObject(
+            ), JSONObject(
                 """    {
         "name": "Bob",
         "age": 35,

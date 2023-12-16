@@ -49,12 +49,7 @@ internal class BeneficiaryJsonParserTest {
             "D",
             "303-555-5555",
             Address(
-                "8515 E Orchard Rd",
-                null,
-                "Greenwood Village",
-                "80111",
-                "CO",
-                "US"
+                "8515 E Orchard Rd", null, "Greenwood Village", "80111", "CO", "US"
             )
         )
 
