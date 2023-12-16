@@ -50,7 +50,7 @@ class BeneficiaryAdapter(
             beneficiary.beneType
         )
         bindDetailView(holder.binding, beneficiary, context)
-        holder.binding.expandColapseButton.setOnClickListener {
+        holder.binding.beneficiaryCard.setOnClickListener {
             dataAtPosition.isExpanded = !dataAtPosition.isExpanded
             showHideDetail(holder, dataAtPosition.isExpanded)
         }
@@ -142,10 +142,10 @@ class BeneficiaryAdapter(
 
     private fun showHideDetail(holder: ViewHolder, shouldShow: Boolean) {
         if (shouldShow) {
-            holder.binding.expandColapseButton.setImageResource( R.drawable.baseline_keyboard_arrow_up_24)
+            holder.binding.expandColapse.setImageResource( R.drawable.baseline_keyboard_arrow_up_24)
             holder.binding.beneficiaryDetail.visibility = View.VISIBLE
         } else {
-            holder.binding.expandColapseButton.setImageResource( R.drawable.baseline_keyboard_arrow_down_24)
+            holder.binding.expandColapse.setImageResource( R.drawable.baseline_keyboard_arrow_down_24)
             holder.binding.beneficiaryDetail.visibility = View.GONE
         }
     }
