@@ -60,16 +60,15 @@
                     </LinearLayout>
                 </LinearLayout>
 
-                <ImageView
-                    android:id="@+id/chevron"
+                <Button
+                    android:id="@+id/expand_colapse_button"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignParentEnd="true"
                     android:layout_centerInParent="true"
-                    android:layout_marginEnd="8dp"
-                    android:contentDescription="@string/expand"
-                    app:srcCompat="@drawable/baseline_chevron_right_24"
-                    app:tint="@color/cardview_dark_background" />
+                    style="@style/Widget.Material3.Button.IconButton.Filled"
+                    app:icon="@drawable/baseline_keyboard_arrow_down_24"
+                    />
             </RelativeLayout>
 
             <LinearLayout

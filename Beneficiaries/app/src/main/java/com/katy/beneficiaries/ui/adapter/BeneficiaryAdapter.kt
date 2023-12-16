@@ -50,7 +50,7 @@ class BeneficiaryAdapter(
             beneficiary.beneType
         )
         bindDetailView(holder.binding, beneficiary, context)
-        holder.binding.chevron.setOnClickListener {
+        holder.binding.expandColapseButton.setOnClickListener {
             dataAtPosition.isExpanded = !dataAtPosition.isExpanded
             showHideDetail(holder, dataAtPosition.isExpanded)
         }
