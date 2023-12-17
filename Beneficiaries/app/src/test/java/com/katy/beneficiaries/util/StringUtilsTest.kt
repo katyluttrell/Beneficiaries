@@ -3,13 +3,20 @@ package com.katy.beneficiaries.util
 import android.util.Log
 import io.mockk.every
 import io.mockk.mockkStatic
+import io.mockk.unmockkAll
 import io.mockk.verify
+import org.junit.After
 import org.junit.Assert.assertEquals
 import org.junit.Test
 import java.time.LocalDate
 
 internal class StringUtilsTest {
     private val stringUtils = StringUtils()
+
+    @After
+    fun cleanup(){
+        unmockkAll()
+    }
 
     @Test
     fun testDateParseSuccess() {

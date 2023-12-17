@@ -7,7 +7,9 @@ import com.katy.beneficiaries.model.Designation
 import com.katy.beneficiaries.util.StringUtils
 import io.mockk.every
 import io.mockk.mockkStatic
+import io.mockk.unmockkAll
 import org.json.JSONObject
+import org.junit.After
 import org.junit.Assert.assertEquals
 import org.junit.Test
 import java.time.LocalDate
@@ -15,6 +17,11 @@ import java.time.LocalDate
 internal class BeneficiaryJsonParserTest {
 
     private val beneficiaryJsonParser = BeneficiaryJsonParser(StringUtils(), AddressJsonParser())
+
+    @After
+    fun cleanup(){
+        unmockkAll()
+    }
 
     @Test
     fun testParseBeneficiarySuccess() {

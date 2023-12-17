@@ -2,13 +2,11 @@ package com.katy.beneficiaries.json
 
 import android.content.Context
 import android.util.Log
-import io.mockk.every
-import io.mockk.mockk
-import io.mockk.mockkStatic
-import io.mockk.verify
+import io.mockk.*
 import kotlinx.coroutines.test.StandardTestDispatcher
 import kotlinx.coroutines.test.TestCoroutineScheduler
 import kotlinx.coroutines.test.runTest
+import org.junit.After
 import org.junit.Assert.assertEquals
 import org.junit.Test
 import java.io.ByteArrayInputStream
@@ -22,6 +20,10 @@ internal class JsonLoaderTest {
     private val context = mockk<Context>(relaxed = true)
     private val jsonLoader = JsonLoader(testDispatcher)
 
+    @After
+    fun cleanup(){
+        unmockkAll()
+    }
     @Test
     fun testJsonLoaderSuccess() = runTest(testCoroutineScheduler) {
         val testFileName = "test.json"

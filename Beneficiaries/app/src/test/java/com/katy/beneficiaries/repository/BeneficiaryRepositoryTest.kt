@@ -7,14 +7,12 @@ import com.katy.beneficiaries.json.BeneficiaryJsonParser
 import com.katy.beneficiaries.json.JsonLoader
 import com.katy.beneficiaries.util.Constants
 import com.katy.beneficiaries.util.StringUtils
-import io.mockk.coEvery
-import io.mockk.every
-import io.mockk.mockk
-import io.mockk.mockkStatic
+import io.mockk.*
 import kotlinx.coroutines.awaitAll
 import kotlinx.coroutines.test.StandardTestDispatcher
 import kotlinx.coroutines.test.TestCoroutineScheduler
 import kotlinx.coroutines.test.runTest
+import org.junit.After
 import org.junit.Assert.assertEquals
 import org.junit.Before
 import org.junit.Test
@@ -33,6 +31,11 @@ internal class BeneficiaryRepositoryTest {
     fun setup() {
         mockkStatic(Log::class)
         every { Log.e(ofType(), ofType()) } returns 0
+    }
+
+    @After
+    fun cleanup(){
+        unmockkAll()
     }
 
     @Test

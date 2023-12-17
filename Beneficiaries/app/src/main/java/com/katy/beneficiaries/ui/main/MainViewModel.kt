@@ -1,6 +1,7 @@
 package com.katy.beneficiaries.ui.main
 
 import android.content.Context
+import androidx.annotation.VisibleForTesting
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -15,7 +16,8 @@ import kotlinx.coroutines.launch
 class MainViewModel : ViewModel() {
     private val beneficiaryRepository = AppComponent.getBeneficiaryRepository()
 
-    private val _beneficiaryData: MutableLiveData<List<CardDataWrapper<Beneficiary>>> =
+    @VisibleForTesting(otherwise = VisibleForTesting.PRIVATE)
+    internal val _beneficiaryData: MutableLiveData<List<CardDataWrapper<Beneficiary>>> =
         MutableLiveData()
     val beneficiaryData: LiveData<List<CardDataWrapper<Beneficiary>>>
         get() = _beneficiaryData

@@ -1,13 +1,20 @@
 package com.katy.beneficiaries.json
 
 import com.katy.beneficiaries.model.Address
+import io.mockk.unmockkAll
 import org.json.JSONObject
+import org.junit.After
 import org.junit.Assert.assertEquals
 import org.junit.Test
 
 internal class AddressJsonParserTest {
 
     private val addressJsonParser = AddressJsonParser()
+
+    @After
+    fun cleanup(){
+        unmockkAll()
+    }
 
     @Test
     fun testParseAddressAllFields() {

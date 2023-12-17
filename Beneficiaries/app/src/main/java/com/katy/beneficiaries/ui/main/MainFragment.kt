@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.annotation.VisibleForTesting
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -22,9 +23,20 @@ class MainFragment : Fragment() {
         fun newInstance() = MainFragment()
     }
 
-    private lateinit var viewModel: MainViewModel
-    private lateinit var binding: FragmentMainBinding
+    @VisibleForTesting(otherwise = VisibleForTesting.PRIVATE)
+    internal lateinit var viewModel: MainViewModel
+    @VisibleForTesting(otherwise = VisibleForTesting.PRIVATE)
+    internal lateinit var binding: FragmentMainBinding
     private val stringUtils = AppComponent.getStringUtils()
+    internal val fetchDataFetchResultHandler = object :DataFetchResultHandler{
+        override fun missingDataCallback() {
+            showErrorSnackbar(getString(R.string.imcomplete_data_message))
+        }
+        override fun noDataCallback() {
+            showErrorSnackbar(getString(R.string.no_data_message))
+        }
+
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -43,15 +55,7 @@ class MainFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         setupObservers()
         if (!viewModel.beneficiaryData.isInitialized) {
-            viewModel.initiateDataFetch(requireContext(), object :DataFetchResultHandler{
-                override fun missingDataCallback() {
-                    showErrorSnackbar(getString(R.string.imcomplete_data_message))
-                }
-                override fun noDataCallback() {
-                    showErrorSnackbar(getString(R.string.no_data_message))
-                }
-
-            })
+            viewModel.initiateDataFetch(requireContext(), fetchDataFetchResultHandler)
         }
     }
 

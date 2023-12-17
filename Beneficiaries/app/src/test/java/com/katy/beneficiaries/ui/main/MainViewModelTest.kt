@@ -12,6 +12,7 @@ import com.katy.beneficiaries.model.Designation
 import com.katy.beneficiaries.ui.adapter.CardDataWrapper
 import io.mockk.coEvery
 import io.mockk.mockk
+import io.mockk.unmockkAll
 import kotlinx.coroutines.*
 import kotlinx.coroutines.test.*
 import org.junit.After
@@ -84,6 +85,7 @@ internal class MainViewModelTest {
     @OptIn(ExperimentalCoroutinesApi::class)
     @After
     fun cleanup() {
+        unmockkAll()
         Dispatchers.resetMain()
     }
 

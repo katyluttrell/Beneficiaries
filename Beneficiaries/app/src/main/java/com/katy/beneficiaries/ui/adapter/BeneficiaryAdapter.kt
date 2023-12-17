@@ -7,6 +7,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
+import androidx.annotation.VisibleForTesting
 import androidx.recyclerview.widget.RecyclerView
 import com.katy.beneficiaries.R
 import com.katy.beneficiaries.databinding.BeneficiaryCardBinding
@@ -17,7 +18,7 @@ import com.katy.beneficiaries.util.Constants
 import com.katy.beneficiaries.util.StringUtils
 
 class BeneficiaryAdapter(
-    private val data: List<CardDataWrapper<Beneficiary>>,
+    internal val data: List<CardDataWrapper<Beneficiary>>,
     private val stringUtils: StringUtils
 ) :
     RecyclerView.Adapter<BeneficiaryAdapter.ViewHolder>() {

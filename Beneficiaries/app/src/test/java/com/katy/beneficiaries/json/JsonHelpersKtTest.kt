@@ -7,12 +7,18 @@ import com.katy.beneficiaries.util.getNestedObjectOrNull
 import com.katy.beneficiaries.util.getStringOrNull
 import io.mockk.every
 import io.mockk.mockkStatic
+import io.mockk.unmockkAll
 import org.json.JSONObject
+import org.junit.After
 import org.junit.Assert.assertEquals
 import org.junit.Test
 
 internal class JsonHelpersKtTest {
 
+    @After
+    fun cleanup(){
+        unmockkAll()
+    }
     @Test
     fun testGetStringOrNullSuccess() {
         val testObject = JSONObject(
