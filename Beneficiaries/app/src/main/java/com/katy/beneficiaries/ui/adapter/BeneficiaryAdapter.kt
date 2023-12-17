@@ -76,6 +76,12 @@ class BeneficiaryAdapter(
                 )
             }
         )
+        showIfNotNull(
+            binding.phoneNumberText,
+            beneficiary.phoneNumber?.let { 
+                String.format(context.getString(R.string.phone_number_display), it)
+            }
+        )
         displayAddressIfNotNull(binding, beneficiary.address)
     }
 

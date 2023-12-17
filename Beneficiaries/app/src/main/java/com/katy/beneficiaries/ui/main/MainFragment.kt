@@ -11,6 +11,7 @@ import com.google.android.material.snackbar.Snackbar
 import com.katy.beneficiaries.R
 import com.katy.beneficiaries.databinding.FragmentMainBinding
 import com.katy.beneficiaries.di.AppComponent
+import com.katy.beneficiaries.handler.DataFetchResultHandler
 import com.katy.beneficiaries.model.Beneficiary
 import com.katy.beneficiaries.ui.adapter.BeneficiaryAdapter
 import com.katy.beneficiaries.ui.adapter.CardDataWrapper
@@ -42,14 +43,22 @@ class MainFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         setupObservers()
         if (!viewModel.beneficiaryData.isInitialized) {
-            viewModel.initiateDataFetch(requireContext(), ::showMissingDataSnackbar)
+            viewModel.initiateDataFetch(requireContext(), object :DataFetchResultHandler{
+                override fun missingDataCallback() {
+                    showErrorSnackbar(getString(R.string.imcomplete_data_message))
+                }
+                override fun noDataCallback() {
+                    showErrorSnackbar(getString(R.string.no_data_message))
+                }
+
+            })
         }
     }
 
-    private fun showMissingDataSnackbar() {
+    private fun showErrorSnackbar(message:String) {
         Snackbar.make(
             binding.root,
-            getString(R.string.imcomplete_data_message),
+            message,
             Snackbar.LENGTH_SHORT
         ).show()
     }

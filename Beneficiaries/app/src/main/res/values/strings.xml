@@ -4,10 +4,12 @@
     <string name="primary">Primary</string>
     <string name="contingent">Contingent</string>
     <string name="imcomplete_data_message">Incomplete Data: Partial data may be displayed.</string>
+    <string name="no_data_message">No Data Found</string>
     <string name="designation_comma">%s Beneficiary,</string>
     <string name="designation">%s Beneficiary</string>
     <string name="address_label">Address:</string>
     <string name="ssn_display">SSN: %s</string>
     <string name="date_of_birth_display">Date of Birth: %s</string>
+    <string name="phone_number_display">Phone Number: %s</string>
 
 </resources>

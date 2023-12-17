@@ -12,8 +12,8 @@ object AppComponent {
 
     private lateinit var appModule: AppModule
 
-    fun initialize(){
-     appModule = AppModule()
+    fun initialize( appModule: AppModule){
+        this.appModule = appModule
     }
 
     fun getStringUtils(): StringUtils = appModule.provideStringUtils()
